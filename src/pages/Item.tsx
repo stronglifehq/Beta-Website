@@ -9,6 +9,7 @@ import { formatPrice } from "utils/price";
 import NumericInput from "components/NumericInput";
 import type { CollapseProps } from "antd";
 import { Collapse } from "antd";
+import EmailCollection from "components/EmailCollection";
 
 type ItemInfo = {
   id: string;
@@ -157,11 +158,14 @@ const Item = () => {
             style={{
               width: "calc(100vw - 64px)",
               padding: 0,
+              fontSize: "18px",
+              marginBottom: "16px",
             }}
           />
         </div>
       )}
       {!item && <p>Loading...</p>}
+      <EmailCollection />
     </div>
   );
 };
