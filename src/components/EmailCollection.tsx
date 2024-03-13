@@ -32,6 +32,7 @@ const EmailCollection = () => {
         alignItems: "center",
         backgroundColor: "#F2F4F6",
         padding: "95px 32px",
+        boxSizing: "border-box",
         gap: 10,
       }}
     >

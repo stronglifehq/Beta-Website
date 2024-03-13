@@ -1,19 +1,26 @@
 import { colors } from "theme";
 import logo from "assets/logo.svg";
-import menu from "assets/menu.svg";
+import logoDark from "assets/logo-dark.svg";
 import shop from "assets/shop.svg";
-type Props = {
-  mode: "light" | "dark";
-};
+import { useSetRecoilState } from "recoil";
+import { isDrawer } from "atom/drawer";
+import { MenuOutlined } from "@ant-design/icons";
+import { useLocation } from "wouter";
 
-const Header = ({ mode }: Props) => {
+const Header = () => {
+  const setIsDrawer = useSetRecoilState(isDrawer);
+  const [location, _] = useLocation();
+  const isLightPath = ["/item/"];
+  const mode = isLightPath.some((path) => location.startsWith(path))
+    ? "light"
+    : "dark";
+
   return (
     <div
       css={{
         background: mode === "light" ? colors.primary : colors.secondary,
         color: mode === "light" ? colors.text : colors.primary,
-        padding: "0 20px",
-        height: "50px",
+        padding: "16px 32px",
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
@@ -21,9 +28,22 @@ const Header = ({ mode }: Props) => {
         zIndex: 100,
       }}
     >
-      <div>
-        <img src={menu} alt="menu" />
-        <img src={logo} alt="logo" />
+      <div
+        css={{
+          display: "flex",
+          gap: "4px",
+        }}
+      >
+        <MenuOutlined
+          css={{
+            width: "24px",
+          }}
+          color={mode === "light" ? "#FFF" : "#000"}
+          onClick={() => {
+            setIsDrawer(true);
+          }}
+        />
+        <img src={mode === "light" ? logo : logoDark} alt="logo" />
       </div>
       <div>
         <img src={shop} alt="shop" />

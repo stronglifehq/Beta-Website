@@ -10,3 +10,7 @@ body {
   color: white;
   font-family: "Poppins", sans-serif;
 }
+
+.ant-menu-inline {
+  border-inline-end: none !important;
+}

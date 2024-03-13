@@ -12,12 +12,14 @@
   "dependencies": {
     "@ant-design/icons": "^5.3.1",
     "@emotion/react": "^11.11.3",
+    "@uidotdev/usehooks": "^2.4.1",
     "antd": "^5.15.0",
     "color.js": "^1.2.0",
     "firebase": "^10.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-firebase-hooks": "^5.1.1",
+    "recoil": "^0.7.7",
     "wouter": "^2.12.1"
   },
   "devDependencies": {

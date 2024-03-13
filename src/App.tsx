@@ -1,11 +1,15 @@
 import Footer from "components/Footer";
 import Header from "components/Header";
+import DrawerNav from "pages/DrawerNav";
+import Home from "pages/Home";
 import Item from "pages/Item";
+import Prod from "pages/Prod";
 import { Route } from "wouter";
 
 function App() {
   return (
     <div>
+      <DrawerNav />
       <Header mode="light" />
       <div
         css={{
@@ -17,7 +21,9 @@ function App() {
           overflow: "scroll",
         }}
       >
+        <Route path="/" component={Home} />
         <Route path="/item/:itemId" component={Item} />
+        <Route path="/prod/:prodId" component={Prod} />
         <Footer />
       </div>
     </div>
