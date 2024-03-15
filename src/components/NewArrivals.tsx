@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { db } from "services/firebase";
 import { ItemInfo } from "types/item";
 import ItemCard from "./ItemCard";
-import { css } from "@emotion/react";
 
 const NewArrivals = () => {
   const arrivals = [

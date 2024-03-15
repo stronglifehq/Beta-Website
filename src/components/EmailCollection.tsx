@@ -12,7 +12,7 @@ const EmailCollection = () => {
   const handleSubmit = async () => {
     try {
       // Reference to the "emails" collection
-      const docRef = await addDoc(collection(db, "emails"), {
+      await addDoc(collection(db, "emails"), {
         email: email,
         timestamp: new Date(), // Adding a timestamp to know when the email was added
       });

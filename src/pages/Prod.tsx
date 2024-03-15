@@ -1,4 +1,3 @@
-import ItemCard from "components/ItemCard";
 import ItemList from "components/ItemList";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";

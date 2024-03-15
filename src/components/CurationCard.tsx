@@ -1,4 +1,3 @@
-import { colors } from "theme";
 import { useLocation } from "wouter";
 
 type Props = {

@@ -1,6 +1,6 @@
 import { db } from "services/firebase"; // Assume you've initialized Firestore
 import { Carousel, Rate, Divider, Button, Select } from "antd";
-import { HeartOutlined, HeartFilled } from "@ant-design/icons";
+import { HeartOutlined } from "@ant-design/icons";
 import { doc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useParams } from "wouter";
