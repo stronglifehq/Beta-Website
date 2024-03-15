@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 
-export const isDrawer = atom<boolean>({
+export const isDrawer = atom<"menu" | "wishlist" | null>({
   key: "drawer", // unique ID (with respect to other atoms/selectors)
-  default: false, // default value (aka initial value)
+  default: null, // default value (aka initial value)
 });

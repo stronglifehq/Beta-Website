@@ -1,18 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
 interface NumericInputProps {
-  initialCount?: number; // Optional initial count
+  count: number; // The count
+  setCount: (q: number) => void; // Function to set the count
 }
 
-const NumericInput: React.FC<NumericInputProps> = ({ initialCount = 0 }) => {
-  const [count, setCount] = useState<number>(initialCount);
-
+const NumericInput: React.FC<NumericInputProps> = ({ count, setCount }) => {
   const decrementCount = () => {
-    setCount((prevCount) => prevCount - 1);
+    if (count === 1) return;
+    setCount(count - 1);
   };
 
   const incrementCount = () => {
-    setCount((prevCount) => prevCount + 1);
+    setCount(count + 1);
   };
 
   return (

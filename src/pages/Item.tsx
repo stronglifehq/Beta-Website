@@ -10,24 +10,20 @@ import NumericInput from "components/NumericInput";
 import type { CollapseProps } from "antd";
 import { Collapse } from "antd";
 import EmailCollection from "components/EmailCollection";
-import { useLocalStorage } from "@uidotdev/usehooks";
-import { set } from "firebase/database";
 import { ItemInfo } from "types/item";
+import useWishlist from "hooks/useWishlist";
 
 const Item = () => {
   const [item, setItem] = useState<ItemInfo>();
+  const [count, setCount] = useState(1);
   const [selectedOption, setSelectedOption] = useState<number>();
   const option = item?.options.attributes[selectedOption ?? 0];
-  const [whishlist, saveWhishlist] = useLocalStorage<string[]>("whishlist", []);
+  const { addToWishlist } = useWishlist();
   const { itemId } = useParams();
 
   const handleWhishlist = () => {
     if (item) {
-      if (whishlist.includes(item.id)) {
-        saveWhishlist(whishlist.filter((id) => id !== item.id));
-      } else {
-        saveWhishlist([...whishlist, item.id]);
-      }
+      addToWishlist(item, count);
     }
   };
 
@@ -46,7 +42,7 @@ const Item = () => {
     };
 
     fetchData();
-  }, [itemId]); // Dependency array to re-run the effect if the documentId changes
+  }, [itemId]);
 
   const items: CollapseProps["items"] = [
     {
@@ -175,8 +171,12 @@ const Item = () => {
             width: "calc(100vw - 64px)",
           }}
         >
-          <NumericInput initialCount={1} />
-          <Button icon={<HeartOutlined />} css={{ flexGrow: 1 }}>
+          <NumericInput count={count} setCount={setCount} />
+          <Button
+            icon={<HeartOutlined />}
+            css={{ flexGrow: 1 }}
+            onClick={handleWhishlist}
+          >
             Whishlist
           </Button>
         </div>
@@ -194,7 +194,6 @@ const Item = () => {
       <Collapse
         items={items}
         ghost
-        defaultActiveKey={["1"]}
         style={{
           width: "calc(100vw - 64px)",
           padding: 0,

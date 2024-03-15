@@ -1,38 +1,13 @@
-import { useEffect, useState } from "react";
+import BestSeller from "components/BestSeller";
+import CategoryCard from "components/CategoryCard";
+import CurationCard from "components/CurationCard";
+import EmailCollection from "components/EmailCollection";
+import NewArrivals from "components/NewArrivals";
+import Title from "components/Title";
+import thumbnail from "assets/curation/thumbnail.png";
 import { colors } from "theme";
-import { Category } from "types/category";
-import { collection, query, where, getDocs } from "firebase/firestore";
-import { db } from "services/firebase";
-import { ItemInfo } from "types/item";
 
 const Home = () => {
-  const [category, setCategory] = useState<Category>("영양제 및 보조제");
-  const [items, setItems] = useState<any[]>([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      if (!category) return;
-
-      const itemsRef = collection(db, "items");
-
-      const q = query(itemsRef, where("category", "==", category));
-
-      const querySnapshot = await getDocs(q);
-
-      const items: ItemInfo[] = [];
-
-      if (!querySnapshot.empty) {
-        querySnapshot.forEach((doc) => {
-          items.push({ id: doc.id, ...doc.data() } as ItemInfo);
-        });
-      } else {
-        console.log("No items found in this category!");
-      }
-    };
-
-    fetchData();
-  }, [category]); // Dependency array to re-run the effect if the documentId changes
-
   return (
     <div
       css={{
@@ -40,11 +15,38 @@ const Home = () => {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        height: "100vh",
         background: colors.primary,
         color: colors.text,
+        overflowX: "hidden",
+        paddingBottom: "32px",
       }}
-    ></div>
+    >
+      <CurationCard
+        img={thumbnail}
+        title="이게 운동복이라고?"
+        description="일상에서도 무리없는 나만 알고싶은 짐웨어 브랜드"
+      />
+      <Title text="New Arrivals" />
+      <NewArrivals />
+      <EmailCollection />
+      <Title text="Shop Category" />
+      <div
+        css={{
+          padding: "0 32px",
+          boxSizing: "border-box",
+          display: "flex",
+          flexDirection: "column",
+          gap: "16px",
+        }}
+      >
+        <CategoryCard type="1" />
+        <CategoryCard type="2" />
+        <CategoryCard type="3" />
+        <CategoryCard type="4" />
+      </div>
+      <Title text="Best Sellers" />
+      <BestSeller />
+    </div>
   );
 };
 

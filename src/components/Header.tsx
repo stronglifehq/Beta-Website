@@ -2,6 +2,7 @@ import { colors } from "theme";
 import logo from "assets/logo.svg";
 import logoDark from "assets/logo-dark.svg";
 import shop from "assets/shop.svg";
+import shopDark from "assets/shop-dark.svg";
 import { useSetRecoilState } from "recoil";
 import { isDrawer } from "atom/drawer";
 import { MenuOutlined } from "@ant-design/icons";
@@ -40,13 +41,19 @@ const Header = () => {
           }}
           color={mode === "light" ? "#FFF" : "#000"}
           onClick={() => {
-            setIsDrawer(true);
+            setIsDrawer("menu");
           }}
         />
         <img src={mode === "light" ? logo : logoDark} alt="logo" />
       </div>
       <div>
-        <img src={shop} alt="shop" />
+        <img
+          src={mode === "light" ? shop : shopDark}
+          alt="shop"
+          onClick={() => {
+            setIsDrawer("wishlist");
+          }}
+        />
       </div>
     </div>
   );

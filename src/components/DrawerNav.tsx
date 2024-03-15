@@ -3,7 +3,6 @@ import { Drawer, Input, Menu, MenuProps, Space } from "antd";
 import { useRecoilState } from "recoil";
 import { isDrawer } from "atom/drawer";
 import { SearchOutlined } from "@ant-design/icons";
-import { css } from "@emotion/react";
 import { useLocation } from "wouter";
 
 type MenuItem = Required<MenuProps>["items"][number];
@@ -13,7 +12,7 @@ const DrawerNav = () => {
   const [location, setLocation] = useLocation();
 
   const onClose = () => {
-    setOpen(false);
+    setOpen(null);
   };
 
   const onClick: MenuProps["onClick"] = (e) => {
@@ -43,7 +42,7 @@ const DrawerNav = () => {
     { type: "divider" },
 
     getItem("Product", "prod", null, [
-      getItem("보충제 및 영양제", "/prod/1"),
+      getItem("영양제 및 보조제", "/prod/1"),
       getItem("헬스용품", "/prod/2"),
       getItem("여성 의류", "/prod/3"),
       getItem("남성 의류", "/prod/4"),
@@ -59,7 +58,7 @@ const DrawerNav = () => {
       placement="left"
       width="calc(100% - 32px)"
       onClose={onClose}
-      open={open}
+      open={open === "menu"}
       extra={
         <Space>
           <img src={logo} alt="logo" />
@@ -78,8 +77,7 @@ const DrawerNav = () => {
       <Menu
         onClick={onClick}
         style={{ width: "1" }}
-        defaultSelectedKeys={["1"]}
-        defaultOpenKeys={["sub1"]}
+        selectedKeys={[location]}
         mode="inline"
         items={items}
       />
