@@ -10,6 +10,7 @@ import { ConfigProvider, Modal } from "antd";
 import { colors } from "theme";
 import { useRecoilState } from "recoil";
 import { modal } from "atom/modal";
+import Curation from "pages/Curation";
 
 function App() {
   const [isModal, setIsModal] = useRecoilState(modal);
@@ -41,6 +42,7 @@ function App() {
         <Route path="/" component={Home} />
         <Route path="/item/:itemId" component={Item} />
         <Route path="/prod/:prodId" component={Prod} />
+        <Route path="/curation" component={Curation} />
         <Footer />
       </div>
       <Modal

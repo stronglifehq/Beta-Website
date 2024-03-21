@@ -37,11 +37,11 @@ const ItemCard = ({ item, mode }: { item: ItemInfo; mode?: string }) => {
       <div
         css={{
           boxSizing: "border-box",
-          fontWeight: "bold",
+          fontWeight: "medium",
           fontSize: "16px",
           overflow: "hidden",
-          textOverflow: "ellipsis",
-          whiteSpace: "nowrap",
+          // textOverflow: "ellipsis",
+          // whiteSpace: "nowrap",
           maxWidth: "100%",
         }}
       >
