@@ -4,16 +4,18 @@ import DrawerNav from "components/DrawerNav";
 import Home from "pages/Home";
 import Item from "pages/Item";
 import Prod from "pages/Prod";
-import { Route } from "wouter";
+import { Route, useLocation } from "wouter";
 import Wishlist from "components/Wishlist";
 import { ConfigProvider, Modal } from "antd";
 import { colors } from "theme";
 import { useRecoilState } from "recoil";
 import { modal } from "atom/modal";
 import Curation from "pages/Curation";
+import Alert from "pages/Alert";
 
 function App() {
   const [isModal, setIsModal] = useRecoilState(modal);
+  const [location] = useLocation();
 
   return (
     <ConfigProvider
@@ -28,23 +30,33 @@ function App() {
     >
       <DrawerNav />
       <Wishlist />
-      <Header />
-      <div
-        css={{
-          position: "fixed",
-          top: "60px",
-          left: 0,
-          right: 0,
-          bottom: 0,
-          overflow: "scroll",
-        }}
-      >
-        <Route path="/" component={Home} />
-        <Route path="/item/:itemId" component={Item} />
-        <Route path="/prod/:prodId" component={Prod} />
-        <Route path="/curation" component={Curation} />
-        <Footer />
-      </div>
+
+      <Route path="/alert" component={Alert} />
+
+      {location !== "/alert" && (
+        <div
+          css={{
+            display: "flex",
+            flexDirection: "column",
+            minHeight: "100vh",
+          }}
+        >
+          <Header />
+          <div
+            css={{
+              flexGrow: 1,
+              boxSizing: "border-box",
+            }}
+          >
+            <Route path="/" component={Home} />
+            <Route path="/item/:itemId" component={Item} />
+            <Route path="/prod/:prodId" component={Prod} />
+            <Route path="/curation" component={Curation} />
+            <Footer />
+          </div>
+        </div>
+      )}
+
       <Modal
         title={isModal.title}
         open={isModal.open}

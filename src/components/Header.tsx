@@ -10,7 +10,7 @@ import { useLocation } from "wouter";
 
 const Header = () => {
   const setIsDrawer = useSetRecoilState(isDrawer);
-  const [location, _] = useLocation();
+  const [location, setLocation] = useLocation();
   const isLightPath = ["/item/"];
   const mode = isLightPath.some((path) => location.startsWith(path))
     ? "light"
@@ -26,13 +26,19 @@ const Header = () => {
         justifyContent: "space-between",
         alignItems: "center",
         gap: "10px",
-        zIndex: 100,
+        zIndex: 1000,
+        height: "60px",
+        boxSizing: "border-box",
+        position: "sticky",
+        top: 0,
       }}
     >
       <div
         css={{
           display: "flex",
           gap: "4px",
+          height: "24px",
+          boxSizing: "border-box",
         }}
       >
         <MenuOutlined
@@ -44,7 +50,11 @@ const Header = () => {
             setIsDrawer("menu");
           }}
         />
-        <img src={mode === "light" ? logo : logoDark} alt="logo" />
+        <img
+          onClick={() => setLocation("/")}
+          src={mode === "light" ? logo : logoDark}
+          alt="logo"
+        />
       </div>
       <div>
         <img

@@ -3,7 +3,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "services/firebase";
 import { ItemInfo } from "types/item";
-import ItemCard from "./ItemCard";
+import ItemCard from "./Item/ItemCard";
 
 const NewArrivals = () => {
   const arrivals = [

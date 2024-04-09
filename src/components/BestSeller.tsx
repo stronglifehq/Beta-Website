@@ -2,7 +2,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "services/firebase";
 import { ItemInfo } from "types/item";
-import ItemList from "./ItemList";
+import ItemList from "./Item/ItemList";
 
 const BestSeller = () => {
   const arrivals = [

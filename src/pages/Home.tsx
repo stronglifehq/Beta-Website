@@ -1,6 +1,6 @@
 import BestSeller from "components/BestSeller";
 import CategoryCard from "components/CategoryCard";
-import CurationCard from "components/CurationCard";
+import CurationCard from "components/curation/CurationCard";
 import EmailCollection from "components/EmailCollection";
 import NewArrivals from "components/NewArrivals";
 import Title from "components/Title";

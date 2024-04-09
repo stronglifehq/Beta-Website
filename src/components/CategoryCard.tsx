@@ -28,6 +28,7 @@ const CategoryCard = ({ type }: Props) => {
       css={{
         width: "100%",
         objectFit: "cover",
+        cursor: "pointer",
       }}
       onClick={() => setLocation(`/prod/${type}`)}
     />

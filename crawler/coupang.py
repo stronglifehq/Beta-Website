@@ -4,9 +4,6 @@ from urllib.parse import urlparse
 # markdownify
 from markdownify import markdownify as md
 
-# beautifulsoup
-from bs4 import BeautifulSoup
-
 # demjson
 import demjson3
 
@@ -121,12 +118,12 @@ def get_coupang_data(url):
     vendor_item_id = parse_qs(parsed_url.query)["vendorItemId"][0]
     item_key = parsed_url.path.split("/")[-1]
     headers = {
-        "authority": "www.coupang.com",
         "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
         "accept-language": "ko,en-US;q=0.9,en;q=0.8",
         "cache-control": "max-age=0",
+        # 'cookie': 'PCID=12177445065569210022350; x-coupang-accept-language=ko-KR; cf_clearance=deFAT0b0nlPFqwTKKFzcJwq1HSgy2ndyWZlPZsaU8Cg-1708615459-1.0-Aaih0orfMswvu9sCb07cUEU2crcEOFgvBjZ3vZg5uSTaj6+IBcDlH7bmxpyHAwXR0MS4F8WwfnfRtivWlWQfOxw=; authOryRedirection=Y; ILOGIN=Y; gd1=Y; CARTIC=12; SUBCARTIC=0; CSID=; CUPT=; CT_LSID=rzLY6krFTZSff_P5KPNSLxYe3AEZS51QsZtzpOUSc7A; authLoginChallenge=4adf71352cbb4d94a91ec125e30e3a0e; MARKETID=12177445065569210022350; x-coupang-target-market=KR; sid=99798c92122b44b6bcf6346144d988550c09d7f6; overrideAbTestGroup=%5B%5D; _abck=6C4927F803523DD933FBAEB0E09BC9FC~0~YAAQTNojFzhsdZyOAQAAsTJPwwtuoq/ll5qwEBqaFkKluauN7AJhwJlaLXlImAzXULLF9JbkgLWHTRrqPeeK/2GLXE6N3PaHhIqEHeQqIfJxl6C9a2dDMe9lnFHfoi52S3ksEgWc+35g8QObDHx7g7N5hLXbAvfgt5o2qzaQZtYZYPleDW6MxvMFyGkKCuDVpmHutZ0X/mtcZz1MulMYN2rfx7Zq68yGOs1ZtXpoWYOXJIs/MXtW0mAEO+Hg7SvVuXde+FjodlagNYNtCJEBxA1wttOe8BT01BzMYTMN+cuusGXvHfsw4BLzy7A565gPXvxVoKJxOAudMrHA6BRK40fWKET+TsD1JUIuveuXX3+B8LmUisWK+nhuCgH6IxnruySRrQmg2lI23xcblTOb5CpPlLbXub6Sz0jO+41pE7K5fHs1UIKd~-1~-1~-1; bm_mi=847E5268D15467C811084CDD8C516107~YAAQt5/YF3sGj8OOAQAAE+dQwxf9Lt5z9S/i4hiEEYkH9Et6tI6wMHPMvaXIuHfwMcTykOkkqjXNYXsGi8W5mJeZFktyLLpKhIewAS5AoSXkxlz7C3lBE098+4HsSskdCQLLzgaVmV6gvrIXEWhV4SXwcSOqDtVNUaNaE8WIHRlosgrUT7jrKqyOhUiXBPoJWyygoKjgtSayTH6CDLBAlLI3F16VTJhPOZjmuQ/ljUiU5veBKdZpRprS9VcABcKaU1eS2uEz/6NtTWlM77oNnb5xsh3IG1Lgwy1xblqUgu30qFHypPbOBXVPDcS+bZnglBtlGpy/84nthnVNaS0hG1n1hv0=~1; bm_sv=0D6E3AE971C0800EA9D070C2EB7D2518~YAAQnp/YF8+r2rGOAQAAau1Qwxfps7g3OLGjW0NtJBTCCnk1THwebxUUjnEWY9f8uYX9iG2q6bwc/UnLVm6KRF+ZP6bFvG9XLPEcLF1UGKde5feawf9OWIZcl+JYA1RdB/+ONC1BIAxQeq4Bdi36L1sUVVQbgMnvfGBf2dYTbW1hi339/9C4D6fV7cVqueSrNDYQsgi1ZGFVUZJ/XiXRjx28BNmn0MIi7uWqmHx01+K8Q2M4npXIUaNrZ/+baHnlQS8=~1; ak_bmsc=D255BCE5247E2EED36EB81AAA847751E~000000000000000000000000000000~YAAQnp/YF5ne2rGOAQAAnTdRwxfmR59RLTOW4rVhlXsLrcsF+Y2MIAjr9uwIq7yhD9NBteTLTmuxztUtDEe2upIa9YJkmORfmzFjcZCiulD8gqoW2flF7X7kx4AKyoZ9r2qlJ+nk2fq8569RzSgrX3Or2KWpM8slFczaJTtYi2tbbBslLobDiWfplONoDc1D85Dgxr6DqNPQy+2xuW2jLODYa0g3Dtt1+xbI3nGnfspmin9Hw8exyAbNAOqdzaVVxYFlunclpsbJ6T6AYdR4wKkSewM+YG5twbbClI+fk/zIP5EEhfrRno2MOEhqj8RF3mLd4aEaxL0wf9BosKtlNw/kOQy/Z5hQrAPQiCQjt6O1pktDxA1E6heqhDMPTedvF/Q/FuFQ83fRZYcONV7v/uKJ0fBKlf0F0yidibMq1k+VtOSBZ8l8zRgbe3a5cGAhFsdTgiVM4A==; bm_sz=DBD23D9E54ADAEB30A2CAEC6AA5252A9~YAAQZ9ojF1LBsaKOAQAA+cpTwxfdNyHcoXnaqnHJv6wfG2xAOt2wjCIcxVUqNgwWbTUIuZomqBhj8hNin2LjkJ5wM69iPlJblHpEaqFl6o2kmkviA9uSMiTNRjuvjOF3SfENRGDefPa+xV1r7wxJ/Kc6PLL+wUz2YM2+F+hbWjy7TNoUV5RdyNkmAXVr5RQOp5/WT8oHMvKxu5a8WQx24UrDlPZxAz7M3pMyPVLPSF/3ke+V2bXbnshEh58M6TAlhmexBxmNYAku37vn6WBB7rbx7IrPyhXuG3Nrhoh4rJo1b7TR6hrvZrfCYcL99XxDZ5snIWJ0C8WZdT3cpH8yXgRLIHCeGLkNyLdDUephQP63RgNNAYEgIzQLFA42B4vBcOnmZyHMnGfVNOAaPLdzkJqlm9FShOp1J6yt/Nc5faQGqKvWTv9hrASrQsnTIykNb5TrNTWzGZtNhWe0XCjd~3553589~3294017; baby-isWide=small',
         "dnt": "1",
-        "sec-ch-ua": '"Not(A:Brand";v="24", "Chromium";v="122"',
+        "sec-ch-ua": '"Chromium";v="123", "Not:A-Brand";v="8"',
         "sec-ch-ua-mobile": "?0",
         "sec-ch-ua-platform": '"macOS"',
         "sec-fetch-dest": "document",
@@ -134,7 +131,7 @@ def get_coupang_data(url):
         "sec-fetch-site": "none",
         "sec-fetch-user": "?1",
         "upgrade-insecure-requests": "1",
-        "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",
     }
 
     json_url = f"https://www.coupang.com/vp/products/{item_key}/items/{item_id}/vendoritems/{vendor_item_id}"
@@ -188,10 +185,6 @@ def get_coupang_data(url):
     #         }
     #     ]
     # }
-
-    headers = {
-        "accept-language": "ko",
-    }
 
     html = requests.get(url, headers=headers)
     # print(html.text)

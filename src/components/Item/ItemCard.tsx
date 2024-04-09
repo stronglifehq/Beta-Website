@@ -3,6 +3,7 @@ import { colors } from "theme";
 import { ItemInfo } from "types/item";
 import { formatPrice } from "utils/price";
 import { useLocation } from "wouter";
+import Typography from "../common/Typography";
 
 const ItemCard = ({ item, mode }: { item: ItemInfo; mode?: string }) => {
   const [_, setLocation] = useLocation();
@@ -11,7 +12,6 @@ const ItemCard = ({ item, mode }: { item: ItemInfo; mode?: string }) => {
       css={{
         boxSizing: "border-box",
         fontSize: "16px",
-        // width: "fit-content",
       }}
       onClick={() => setLocation(`/item/${item.id}`)}
     >
@@ -20,7 +20,9 @@ const ItemCard = ({ item, mode }: { item: ItemInfo; mode?: string }) => {
         alt={item.title}
         css={{
           width: "100%",
-          objectFit: "cover",
+          objectFit: "contain",
+          aspectRatio: "3/4",
+          backgroundColor: "#EEE",
         }}
       />
       <Rate
@@ -30,33 +32,27 @@ const ItemCard = ({ item, mode }: { item: ItemInfo; mode?: string }) => {
         style={{
           marginTop: "8px",
           color: colors.secondary,
-          transform: "scale(0.75)",
+          transform: "scale(0.6)",
           transformOrigin: "left center",
         }}
       />
-      <div
-        css={{
+      <Typography
+        s={{
           boxSizing: "border-box",
-          fontWeight: "medium",
-          fontSize: "16px",
           overflow: "hidden",
-          // textOverflow: "ellipsis",
-          // whiteSpace: "nowrap",
+          textOverflow: "ellipsis",
+          whiteSpace: "nowrap",
           maxWidth: "100%",
         }}
+        fw="semi-bold"
+        fs={16}
       >
         {item.title}
-      </div>
+      </Typography>
       {mode === "arrivals" && (
-        <div
-          css={{
-            color: colors.secondary,
-            fontWeight: "bold",
-            fontSize: "14px",
-          }}
-        >
+        <Typography fw="semi-bold" fs={16}>
           {formatPrice(item.options.attributes[item.selected_option].price)}
-        </div>
+        </Typography>
       )}
     </div>
   );

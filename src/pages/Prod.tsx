@@ -1,4 +1,4 @@
-import ItemList from "components/ItemList";
+import ItemList from "components/Item/ItemList";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "services/firebase";
@@ -44,13 +44,13 @@ const Prod = () => {
   const id2name = (id: string | undefined) => {
     switch (id) {
       case "1":
-        return "영양제 및 보조제";
+        return "보조제 및 보충제";
       case "2":
-        return "헬스용품";
+        return "스트랩 및 보호용품";
       case "3":
-        return "여성 의류";
+        return "여성 짐웨어";
       case "4":
-        return "남성 의류";
+        return "남성 짐웨어";
       default:
         return "Unknown";
     }
@@ -64,7 +64,7 @@ const Prod = () => {
         justifyContent: "center",
         color: colors.text,
         width: "100vw",
-        padding: "32px 40px",
+        padding: "40px 32px",
         boxSizing: "border-box",
       }}
     >

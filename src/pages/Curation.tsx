@@ -1,4 +1,4 @@
-import CurationCard from "components/CurationCard";
+import CurationCard from "components/curation/CurationCard";
 import { colors } from "theme";
 import thumbnail from "assets/curation/thumbnail.png";
 import image1 from "assets/curation/image1.png";

@@ -7,6 +7,7 @@ import { ItemInfo } from "types/item";
 import { colors } from "theme";
 import { formatPrice, getTotalPrice } from "utils/price";
 import { modal } from "atom/modal";
+import Typography from "./common/Typography";
 
 const Wishlist = () => {
   const [open, setOpen] = useRecoilState(isDrawer);
@@ -28,14 +29,9 @@ const Wishlist = () => {
       onClose={onClose}
       open={open === "wishlist"}
       extra={
-        <div
-          css={{
-            color: colors.text,
-            fontSize: "34px",
-          }}
-        >
-          Cart
-        </div>
+        <Typography lang="en" fw="medium" fs={28}>
+          Whislist
+        </Typography>
       }
     >
       <div
@@ -102,7 +98,7 @@ const Wishlist = () => {
               });
             }}
           >
-            주문하기
+            공동구매 알림 신청하기
           </Button>
         </div>
       </div>

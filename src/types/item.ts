@@ -3,6 +3,7 @@ export type ItemInfo = {
   category: string;
   url: string;
   title: string;
+  oneline: string;
   details: string[];
   selected_option: number;
   rating: number;

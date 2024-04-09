@@ -15,6 +15,7 @@
     "@uidotdev/usehooks": "^2.4.1",
     "antd": "^5.15.0",
     "color.js": "^1.2.0",
+    "colorthief": "^2.4.0",
     "firebase": "^10.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

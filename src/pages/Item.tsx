@@ -3,7 +3,7 @@ import { Carousel, Rate, Divider, Button, Select } from "antd";
 import { HeartOutlined } from "@ant-design/icons";
 import { doc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { useParams } from "wouter";
+import { useLocation, useParams } from "wouter";
 import { colors } from "theme";
 import { formatPrice } from "utils/price";
 import NumericInput from "components/NumericInput";
@@ -20,6 +20,7 @@ const Item = () => {
   const option = item?.options.attributes[selectedOption ?? 0];
   const { addToWishlist } = useWishlist();
   const { itemId } = useParams();
+  const [_, setLocation] = useLocation();
 
   const handleWhishlist = () => {
     if (item) {
@@ -107,7 +108,7 @@ const Item = () => {
           {item.title}
         </div>
         <div css={{ fontSize: "20px", color: colors.textSecondary }}>
-          {item.category}
+          {item.oneline}
         </div>
         <div
           css={{
@@ -187,6 +188,7 @@ const Item = () => {
             width: "calc(100vw - 64px)",
             height: "32px",
           }}
+          onClick={() => setLocation("/alert")}
         >
           공동구매 알림 신청하기
         </Button>

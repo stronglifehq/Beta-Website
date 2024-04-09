@@ -2,27 +2,29 @@ import pandas as pd
 
 from coupang import get_coupang_data
 from firebase import insert_row, delete_collection
+from default import get_data
 
 # delete all documents in the collection
 # delete_collection(100)
 
 
-df = pd.read_csv("crawler/data.csv")
+df = pd.read_csv("crawler/products.csv")
 
-# filter rows with column 링크 empty
-df = df[df["링크"].notna()]
 
-# filter rows with column 링크 containing coupang.com
-coupang_df = df[df["링크"].str.contains("https://www.coupang.com")]
+coupang_df = df[df["링크"].notna()]
+coupang_df = coupang_df[coupang_df["링크"].str.contains("https://www.coupang.com")]
 
-category_set = set(coupang_df["카테고리"])
-print(category_set)
+not_coupang_df = df[~df["링크"].str.contains("https://www.coupang.com", na=False)]
 
-# count = 0
+for index, row in not_coupang_df.iterrows():
+    data = get_data(row)
+    data["category"] = row["카테고리"]
+    data["oneline"] = row["한줄 소개(20자 이내)"]
+    print(data)
+    insert_row(data)
 
-# for index, row in coupang_df.iterrows():
-#     data = get_coupang_data(row["링크"])
-#     data["category"] = row["카테고리"]
-#     insert_row(data)
-
-# print(count)
+for index, row in coupang_df.iterrows():
+    data = get_coupang_data(row["링크"])
+    data["category"] = row["카테고리"]
+    data["oneline"] = row["한줄 소개(20자 이내)"]
+    insert_row(data)
