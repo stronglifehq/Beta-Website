@@ -14,6 +14,7 @@ const CurationCard = ({ img, title, description }: Props) => {
       css={{
         width: "100%",
         position: "relative",
+        maxWidth: "500px",
       }}
       onClick={() => setLocation("/curation")}
     >
