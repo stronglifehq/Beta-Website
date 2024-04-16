@@ -5,9 +5,10 @@ type Props = {
   img: string;
   title: React.ReactNode;
   description: React.ReactNode;
+  mode?: string;
 };
 
-const CurationCard = ({ img, title, description }: Props) => {
+const CurationCard = ({ img, title, description, mode }: Props) => {
   const [_, setLocation] = useLocation();
 
   return (
@@ -20,41 +21,69 @@ const CurationCard = ({ img, title, description }: Props) => {
       onClick={() => setLocation("/curation")}
     >
       <img src={img} css={{ width: "100%" }} />
-      <div
-        css={{
-          fontSize: "19px",
-          fontWeight: "bold",
-          position: "absolute",
-          bottom: "90px",
-          left: "40px",
-          display: "flex",
-          flexDirection: "column",
-          gap: "24px",
-          color: "#FFF",
-          width: "50%",
-        }}
-      >
-        <Typography
-          fs={28}
-          fw="medium"
-          c="white"
-          s={{
-            textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+      {mode == "curation" ? (
+        <div
+          css={{
+            fontSize: "19px",
+            fontWeight: "bold",
+            position: "absolute",
+            top: "110px",
+            left: "40px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "24px",
+            color: "#FFF",
+            width: "50%",
           }}
         >
-          {title}
-        </Typography>
-        <Typography
-          fs={14}
-          fw="bold"
-          c="white"
-          s={{
-            textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+          <Typography
+            fs={20}
+            fw="bold"
+            c="white"
+            s={{
+              textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+            }}
+          >
+            {description}
+          </Typography>
+        </div>
+      ) : (
+        <div
+          css={{
+            fontSize: "19px",
+            fontWeight: "bold",
+            position: "absolute",
+            bottom: "90px",
+            left: "40px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "24px",
+            color: "#FFF",
+            width: "50%",
           }}
         >
-          {description}
-        </Typography>
-      </div>
+          <Typography
+            fs={28}
+            fw="medium"
+            c="white"
+            s={{
+              textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+            }}
+          >
+            {title}
+          </Typography>
+          <Typography
+            fs={14}
+            fw="bold"
+            c="white"
+            s={{
+              textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+            }}
+          >
+            {description}
+          </Typography>
+        </div>
+      )}
     </div>
   );
 };

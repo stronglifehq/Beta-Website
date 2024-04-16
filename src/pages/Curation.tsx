@@ -64,6 +64,7 @@ const Curation = () => {
         img={thumbnail}
         title="이게 운동복이라고?"
         description="일상에서도 무리없는 나만 알고싶은 짐웨어 브랜드"
+        mode="curation"
       />
       <CurationTitle>운동복은 다 똑같다구요?</CurationTitle>
       <CurationBody>
