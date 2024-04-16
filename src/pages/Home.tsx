@@ -24,10 +24,17 @@ const Home = () => {
       <CurationCard
         img={thumbnail}
         title="이게 운동복이라고?"
-        description="일상에서도 무리없는 나만 알고싶은 짐웨어 브랜드"
+        description={
+          <>
+            일상에서도 무리없는
+            <br />
+            나만 알고싶은 짐웨어 브랜드
+          </>
+        }
       />
-      <Title text="New Arrivals" />
-      <NewArrivals />
+      <NewArrivals>
+        <Title text="New Arrivals" />
+      </NewArrivals>
       <EmailCollection />
       <Title text="Shop Category" />
       <div

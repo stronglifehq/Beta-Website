@@ -51,7 +51,7 @@ const ItemCard = ({ item, mode }: { item: ItemInfo; mode?: string }) => {
       </Typography>
       {mode === "arrivals" && (
         <Typography fw="semi-bold" fs={16}>
-          {formatPrice(item.options.attributes[item.selected_option].price)}
+          {formatPrice(item.options.attributes[item.selected_option].price)} 원
         </Typography>
       )}
     </div>

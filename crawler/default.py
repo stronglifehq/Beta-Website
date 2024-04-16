@@ -57,7 +57,9 @@ def get_data(row):
         "selected_option": 0,
         "options": {
             "name": "기본",
-            "attributes": [{"name": "기본", "price": 0, "original_price": 0}],
+            "attributes": [
+                {"name": "기본", "price": row["가격"], "original_price": row["가격"]}
+            ],
         },
     }
 

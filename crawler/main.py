@@ -20,6 +20,8 @@ for index, row in not_coupang_df.iterrows():
     data = get_data(row)
     data["category"] = row["카테고리"]
     data["oneline"] = row["한줄 소개(20자 이내)"]
+    if not pd.isnull(row["태그"]):
+        data["tag"] = row["태그"]
     print(data)
     insert_row(data)
 
@@ -27,4 +29,6 @@ for index, row in coupang_df.iterrows():
     data = get_coupang_data(row["링크"])
     data["category"] = row["카테고리"]
     data["oneline"] = row["한줄 소개(20자 이내)"]
+    if not pd.isnull(row["태그"]):
+        data["tag"] = row["태그"]
     insert_row(data)

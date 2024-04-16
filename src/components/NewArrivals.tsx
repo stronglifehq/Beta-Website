@@ -1,71 +1,83 @@
 import { Carousel } from "antd";
-import { doc, getDoc } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "services/firebase";
 import { ItemInfo } from "types/item";
 import ItemCard from "./Item/ItemCard";
+import Points from "./Points";
 
-const NewArrivals = () => {
-  const arrivals = [
-    "9pGXLvCv6tKiaUWIVbGw",
-    "SL55vGPdD2l3XMRbarHQ",
-    "oS6GMpLn6xWWdugnkRp1",
-    "dtWKC1asQNu3ntPCdJXf",
-    "lK2X1DgLPBztesQQyU16",
-  ];
+type NewArrivalsProps = {
+  children?: React.ReactNode;
+};
+
+const NewArrivals = ({ children }: NewArrivalsProps) => {
   const [items, setItems] = useState<ItemInfo[]>([]);
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    const fetchItemsByIds = async (ids: string[]) => {
-      try {
-        const promises = ids.map((id) => {
-          const docRef = doc(db, "items", id);
-          return getDoc(docRef);
+    const fetchData = async () => {
+      const itemsRef = collection(db, "items");
+
+      const q = query(itemsRef, where("tag", "==", "New"));
+
+      const querySnapshot = await getDocs(q);
+
+      const items: ItemInfo[] = [];
+
+      if (!querySnapshot.empty) {
+        querySnapshot.forEach((doc) => {
+          items.push({ id: doc.id, ...doc.data() } as ItemInfo);
         });
-        const snapshots = await Promise.all(promises);
-        const items = snapshots
-          .filter((snapshot) => snapshot.exists())
-          .map(
-            (snapshot) =>
-              ({
-                id: snapshot.id,
-                ...snapshot.data(),
-              } as ItemInfo)
-          );
-        setItems(items);
-      } catch (error) {
-        console.error("Error fetching documents: ", error);
+      } else {
+        console.log("No items found in this category!");
       }
+
+      setItems(items);
     };
-    fetchItemsByIds(arrivals);
+
+    fetchData();
   }, []);
 
   return (
-    <div
-      css={{
-        boxSizing: "border-box",
-      }}
-    >
-      <Carousel
+    <>
+      <div
         css={{
-          width: "200vw",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          width: "calc(100% - 64px)",
         }}
-        slidesToShow={3}
-        autoplay
       >
-        {items.map((item) => (
-          <div
-            css={{
-              padding: "20px",
-              boxSizing: "border-box",
-            }}
-          >
-            <ItemCard key={item.id} item={item} mode="arrivals" />
-          </div>
-        ))}
-      </Carousel>
-      <div>hello</div>
-    </div>
+        {children}
+        <Points length={items.length} index={index} />
+      </div>
+      <div
+        css={{
+          boxSizing: "border-box",
+        }}
+      >
+        <Carousel
+          css={{
+            width: "200vw",
+          }}
+          slidesToShow={3}
+          autoplay
+          afterChange={(index) => setIndex(index)}
+        >
+          {items.map((item) => (
+            <div
+              css={{
+                padding: "20px",
+                boxSizing: "border-box",
+              }}
+            >
+              <ItemCard key={item.id} item={item} mode="arrivals" />
+            </div>
+          ))}
+        </Carousel>
+        <div>hello</div>
+      </div>
+    </>
   );
 };
 

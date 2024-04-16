@@ -1,9 +1,10 @@
+import Typography from "components/common/Typography";
 import { useLocation } from "wouter";
 
 type Props = {
   img: string;
-  title: string;
-  description: string;
+  title: React.ReactNode;
+  description: React.ReactNode;
 };
 
 const CurationCard = ({ img, title, description }: Props) => {
@@ -31,18 +32,28 @@ const CurationCard = ({ img, title, description }: Props) => {
           gap: "24px",
           color: "#FFF",
           width: "50%",
-          textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
         }}
       >
-        <div>{title}</div>
-        <div
-          css={{
-            fontSize: "14px",
-            fontWeight: "medium",
+        <Typography
+          fs={28}
+          fw="medium"
+          c="white"
+          s={{
+            textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+          }}
+        >
+          {title}
+        </Typography>
+        <Typography
+          fs={14}
+          fw="bold"
+          c="white"
+          s={{
+            textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
           }}
         >
           {description}
-        </div>
+        </Typography>
       </div>
     </div>
   );
